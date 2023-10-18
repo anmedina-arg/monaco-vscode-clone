@@ -1,14 +1,20 @@
-'use client';
+'use client'
 import styles from './page.module.css';
 import EditorCode from '../components/Editor';
+import FileList from '../components/FileList';
 import { useState } from 'react';
 
 export default function Home() {
-  const [lenguage, setLenguage] = useState('javascript')
+  const [language, setLanguage] = useState('javascript');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSelect = (e) => {
-    e.preventDefault
-    setLenguage(e.target.value)
+    e.preventDefault();
+    setLanguage(e.target.value);
+  };
+
+  const handleFileSelect = (file) => {
+    setSelectedFile(file);
   };
 
   return (
@@ -20,9 +26,10 @@ export default function Home() {
         </select>
       </section>
       <section>
-        <p>selected lenguage: {lenguage}</p>
+        <p>Selected language: {language}</p>
       </section>
-      <EditorCode lenguage={lenguage}/>
+      <FileList onFileSelect={handleFileSelect} />
+      <EditorCode language={language} selectedFile={selectedFile} />
     </main>
-  )
-};
+  );
+}
